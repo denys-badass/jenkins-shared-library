@@ -1,9 +1,9 @@
 #! /usr/bin/env groovy
 
-def call(String appName, String version) {
+def call() {
     withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-        sh "docker build -t $appName:$version ."
+        sh 'docker build -t dennydobry/test-java-app:jma-1.3 .'
         sh 'echo $PASS | docker login -u $USER --password-stdin'
-        sh "docker push $appName:$version"
+        sh 'docker push dennydobry/test-java-app:jma-1.3'
     }
 }
